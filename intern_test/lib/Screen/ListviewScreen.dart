@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intern_test/Screen/AddScreen.dart';
 import 'package:intern_test/material/DropdownList.dart';
+import 'package:intern_test/material/ListData.dart';
+
+import '../material/ApprovalData.dart';
 
 class ListviewScreen extends StatefulWidget {
 
   static bool DefaultCheck = true;
   static bool TransferCheck = true;
-  ListviewScreen({Key? key}) : super(key: key);
 
   @override
   _ListviewScreenState createState() {
@@ -47,26 +50,34 @@ class _ListviewScreenState extends State<ListviewScreen> {
                   ),
                   width: double.maxFinite,
                   height: 65,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xff171C8F),
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                    margin: const EdgeInsets.only(
-                        right: 30, top: 20, left: 200, bottom: 15),
-                    child: Row(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(left: 5),
-                          child: Icon(Icons.add_circle, color: Colors.white,),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 30),
-                          child: Text('Make New Matrix', style: TextStyle(
-                            color: Colors.white,
-                          ),),
-                        )
-                      ],
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context)=>AddMatrix(),),);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xff171C8F),
+                        borderRadius: BorderRadius.circular(5)
+                      ),
+                      margin: const EdgeInsets.only(
+                          right: 30, top: 20, left: 200, bottom: 15),
+                      child: Row(
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Icon(Icons.add_circle, color: Colors.white,),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 30),
+                            child: Text('Make New Matrix', style: TextStyle(
+                              color: Colors.white,
+                            ),),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -100,6 +111,7 @@ class _ListviewScreenState extends State<ListviewScreen> {
                   ),
                 ),
                 ),
+                Container(height: 400,),
                 DropdownList(text: 'Transfer Online',
                   Check: ListviewScreen.TransferCheck.toString(),
                   widget: TextButton(
