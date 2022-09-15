@@ -7,7 +7,7 @@ import 'package:intern_test/material/Textfield.dart';
 class AddMatrix extends StatefulWidget {
 
 
-  AddMatrix({
+  const AddMatrix({
     Key? key,
     // required this.addData,
   }) : super(key: key);
@@ -29,7 +29,7 @@ class _AddMatrixState extends State<AddMatrix> {
   final TextEditingController _approvalNumber = TextEditingController();
   String DropdownItem = '';
 
-  get listData => listData;
+ // get listData => listData;
 
   @override
   void initState() {
@@ -167,7 +167,7 @@ class _AddMatrixState extends State<AddMatrix> {
                     GestureDetector(
                       onTap: (){
                         _addData();
-                        print(ListData.listData[1].number);
+                        Navigator.pop(context);
                       },
                       child: Container(
                         margin: const EdgeInsets.only(top: 60),

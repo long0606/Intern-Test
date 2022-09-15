@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intern_test/Screen/AddScreen.dart';
+import 'package:intern_test/material/CRUD.dart';
 import 'package:intern_test/material/DropdownList.dart';
 import 'package:intern_test/material/ListData.dart';
 
-import '../material/ApprovalData.dart';
 
 class ListviewScreen extends StatefulWidget {
 
   static bool DefaultCheck = true;
   static bool TransferCheck = true;
+
+  const ListviewScreen({super.key});
 
   @override
   _ListviewScreenState createState() {
@@ -34,6 +36,7 @@ class _ListviewScreenState extends State<ListviewScreen> {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              pinned: true,
               title: const Center(child: Text(
                 'Approval Matrix',
                 style: TextStyle(
@@ -82,7 +85,6 @@ class _ListviewScreenState extends State<ListviewScreen> {
                   ),
                 ),
               ),
-              pinned: true,
               expandedHeight: 150,
               flexibleSpace: const FlexibleSpaceBar(
               ),
@@ -98,20 +100,28 @@ class _ListviewScreenState extends State<ListviewScreen> {
                       if(ListviewScreen.DefaultCheck){
                         ListviewScreen.DefaultCheck = false;
                       }
-                      else ListviewScreen.DefaultCheck = true;
+                      else {
+                        ListviewScreen.DefaultCheck = true;
+                      }
                     });
                   },
                   child: Container(
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     child: Icon(
                       ListviewScreen.DefaultCheck?
                       Icons.keyboard_arrow_down_rounded:Icons.keyboard_arrow_up_rounded,
-                      color: ListviewScreen.DefaultCheck?Color(0xffED8B00):Colors.black,
+                      color: ListviewScreen.DefaultCheck?const Color(0xffED8B00):Colors.black,
                     ),
                   ),
                 ),
                 ),
-                Container(height: 400,),
+                if(ListviewScreen.DefaultCheck==true)
+                  for(int id = 0; id < ListData.listData.length;id ++)
+                    if(ListData.listData[id].feature =='Default')
+                      CRUD(id),
+
+
+
                 DropdownList(text: 'Transfer Online',
                   Check: ListviewScreen.TransferCheck.toString(),
                   widget: TextButton(
@@ -120,19 +130,25 @@ class _ListviewScreenState extends State<ListviewScreen> {
                         if(ListviewScreen.TransferCheck){
                           ListviewScreen.TransferCheck = false;
                         }
-                        else ListviewScreen.TransferCheck = true;
+                        else {
+                          ListviewScreen.TransferCheck = true;
+                        }
                       });
                     },
                     child: Container(
-                      padding: EdgeInsets.only(left: 5),
+                      padding: const EdgeInsets.only(left: 5),
                       child: Icon(
                         ListviewScreen.TransferCheck?
                         Icons.keyboard_arrow_down_rounded:Icons.keyboard_arrow_up_rounded,
-                        color: ListviewScreen.TransferCheck?Color(0xffED8B00):Colors.black,
+                        color: ListviewScreen.TransferCheck?const Color(0xffED8B00):Colors.black,
                       ),
                     ),
                   ),
                 ),
+                if(ListviewScreen.TransferCheck==true)
+                  for(int id = 0; id < ListData.listData.length;id ++)
+                    if(ListData.listData[id].feature =='Transfer Online')
+                      CRUD(id),
               ],
             ),
               ),
