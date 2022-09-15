@@ -288,7 +288,7 @@ class _CRUDState extends State<CRUD> {
               height: 1,
               color: const Color(0xffD1D2D4),
             ),
-            if (ListData.listData[widget.index].number==1) Row(
+            if (ListData.listData[widget.index].number=='1') Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
@@ -308,7 +308,7 @@ class _CRUDState extends State<CRUD> {
                       ),
                     ),
                   ],
-                ) else if(ListData.listData[widget.index]==2) Column(
+                ) else if(ListData.listData[widget.index].number=='2') Column(
                     children: [
                       Container(
                         padding: const EdgeInsets.only(bottom: 15),
