@@ -7,8 +7,8 @@ import 'package:intern_test/material/ListData.dart';
 
 class ListviewScreen extends StatefulWidget {
 
-  static bool DefaultCheck = true;
-  static bool TransferCheck = true;
+  static bool DefaultCheck = false;
+  static bool TransferCheck = false;
 
   const ListviewScreen({super.key});
 

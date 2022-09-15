@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ApprovalData.dart';
 import 'ListData.dart';
 
 class CRUD extends StatefulWidget {
@@ -38,10 +39,10 @@ class _CRUDState extends State<CRUD> {
           ),
           TextButton(
             onPressed: () {
-              setState(() {
-                ListData.listData.removeAt(widget.index);
-                Navigator.pop(context, 'OK');
-              });
+              ListData.listData.removeAt(widget.index);
+              --widget.index ;
+              Navigator.pop(context, 'OK');
+
             },
             child: const Text(
               'OK',
@@ -53,10 +54,144 @@ class _CRUDState extends State<CRUD> {
     );
   }
 
+  ///////////////////////////////// Chuc nang xem chi tiet////////////////////////
   view(){
+    TextEditingController minimumChange = TextEditingController();
+    TextEditingController maximumChange = TextEditingController();
+    TextEditingController nameChange = TextEditingController();
+    TextEditingController numberChange = TextEditingController();
 
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) => SingleChildScrollView(
+          child: AlertDialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15),
+              ),
+            ),
+            title: const Text('Detail of Approval Matrix', style: TextStyle(
+              color: Color(0xffED8B00)
+            ),),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Name of Approval Matrix'),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: const Color(0xffD1D2D4)),
+                  ),
+                  child: TextField(
+                    controller: nameChange,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: ListData.listData[widget.index].name,
+                      hintStyle: const TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Minimum Range'),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: const Color(0xffD1D2D4)),
+                  ),
+                  child: TextField(
+                    controller: minimumChange,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: ListData.listData[widget.index].minimum,
+                      hintStyle: const TextStyle(color: Colors.black)
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Maximum Range'),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: const Color(0xffD1D2D4)),
+                  ),
+                  child: TextField(
+                    controller: maximumChange,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ListData.listData[widget.index].maximum,
+                        hintStyle: const TextStyle(color: Colors.black)
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Number of Approval'),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: const Color(0xffD1D2D4)),
+                  ),
+                  child: TextField(
+                    controller: numberChange,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ListData.listData[widget.index].number,
+                        hintStyle: const TextStyle(color: Colors.black)
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                child: const Text(
+                  'Cancel',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    ListData.listData.insert(widget.index,
+                      Data(
+                        minimum: minimumChange.text,
+                        maximum: maximumChange.text,
+                        number: numberChange.text,
+                        name: nameChange.text,
+                      ),
+                    );
+                    ListData.listData[widget.index];
+                  });
+                  Navigator.pop(context, 'Save');
+                },
+                child: const Text(
+                  'Save',
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                ),
+              ),
+            ],
+          ),
+        ),);
   }
 
+
+
+
+  ///////////***********///////////////*************//////////////***********////////
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -98,7 +233,7 @@ class _CRUDState extends State<CRUD> {
                   alignment: Alignment.centerRight,
                   child: Text(
                     ListData.listData[widget.index].minimum.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Color(0xff171C8F)
                     ),
                   ),
@@ -109,27 +244,22 @@ class _CRUDState extends State<CRUD> {
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.only(top: 10),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(width: 168,),
-                    Text('Maximum IDR',
+                    const SizedBox(width: 115,),
+                    const Text('Maximum IDR',
                       style: TextStyle(
                         fontSize: 12,
                           color: Color(0xff171C8F)
                       ),
                     ),
                     Text(ListData.listData[widget.index].maximum.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Color(0xff171C8F)
                     ),
                     ),
                   ],
                 )),
-            Container(
-              margin: const EdgeInsets.only(top: 10, bottom: 10),
-              width: double.maxFinite,
-              height: 1,
-              color: const Color(0xffD1D2D4),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
